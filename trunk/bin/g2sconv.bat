@@ -1,0 +1,1 @@
+java -cp commons-codec-1.6.jar -jar Google2SymbianContacts.jar ConverterApp
