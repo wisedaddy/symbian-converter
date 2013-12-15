@@ -33,12 +33,14 @@ def validate(brd, size_x, size_y):
                 is_valid = strategy.check_bishop_place_allowed(brd, x, y, size_x, size_y)
             elif fig == queen:
                 is_valid = strategy.check_queen_place_allowed(brd, x, y, size_x, size_y)
+            elif fig == knight:
+                is_valid = strategy.check_knight_place_allowed(brd, x, y, size_x, size_y)
             if not is_valid: return 0
     return is_valid
 
 
 def place_figs_on_brd(figs, brd, size_x, size_y, level):
-    brds = []
+    brds = set()
     fig = figs[0]
     other_figs = figs[1:]
     for y in range(size_y):
@@ -50,9 +52,10 @@ def place_figs_on_brd(figs, brd, size_x, size_y, level):
                     if (len(other_figs)) > 0:
                         other_brds = place_figs_on_brd(other_figs, brd_copy, size_x, size_y, level + 1)
                         for other_brd in other_brds:
-                            brds.append(other_brd)
+                            brds.add(other_brd)
                     else:
-                        brds.append(brd_copy)
+                        brd_as_tuple = tuple(tuple(x) for x in brd_copy)
+                        brds.add(brd_as_tuple)
                         # print("Board found..")
     # if len(brds) > 0:
     #     for brd in brds:
