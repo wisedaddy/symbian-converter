@@ -17,7 +17,7 @@ def figs_as_list(figs):
 
 
 def create_empty_board(x, y):
-    return [[0 in range(x)] in range(y)]
+    return [[0 for xindex in range(x)] for yindex in range(y)]
 
 
 def validate(brd, size_x, size_y):
