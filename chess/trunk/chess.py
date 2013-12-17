@@ -1,6 +1,6 @@
 __author__ = "stafi"
 
-import copy, view, strategy
+import copy, strategy
 
 king = "K"
 queen = "Q"
@@ -17,7 +17,7 @@ def figs_as_list(figs):
 
 
 def create_empty_board(x, y):
-    return [[0 for xindex in range(x)] for yindex in range(y)]
+    return [[0 in range(x)] in range(y)]
 
 
 def validate(brd, size_x, size_y):
@@ -42,6 +42,7 @@ def validate(brd, size_x, size_y):
 def place_figs_on_brd(figs, brd, size_x, size_y, level):
     brds = set()
     fig = figs[0]
+    #print('Level: ', level)
     other_figs = figs[1:]
     for y in range(size_y):
         for x in range(size_x):
@@ -56,8 +57,4 @@ def place_figs_on_brd(figs, brd, size_x, size_y, level):
                     else:
                         brd_as_tuple = tuple(tuple(x) for x in brd_copy)
                         brds.add(brd_as_tuple)
-                        # print("Board found..")
-    # if len(brds) > 0:
-    #     for brd in brds:
-    #         view.print_board(brd)
     return brds
