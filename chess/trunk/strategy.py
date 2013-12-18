@@ -39,15 +39,16 @@ def check_bishop_place_allowed(brd, x, y, size_x, size_y):
                 return 0
             i += 1
 
-    x1 = x - min(x, size_y - y - 1)
-    y1 = y - min(x, size_y - y - 1)
+    min_x_y = min(x, size_y - y - 1)
+    x1 = x - min_x_y
+    y1 = y + min_x_y
     end = 0
     i = 0
     while not end:
         if y1 - i < 0 or x1 + i >= size_x:
             end = 1
         else:
-            if (size_y - 1 - y1 - i) != y and (x1 + i) != x and brd[size_y - 1 - y1 - i][x1 + i] != 0:
+            if (y1 - i) != y and (x1 + i) != x and brd[y1 - i][x1 + i] != 0:
                 return 0
             i += 1
     return 1
