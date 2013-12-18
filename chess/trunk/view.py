@@ -6,7 +6,7 @@ def print_board(brd):
         s = ''
         for el in row:
             s += '|'
-            s += str(el)
+            s += el.decode("utf-8")
             if el == len(row) - 1:
                 s += '|'
         print(s)

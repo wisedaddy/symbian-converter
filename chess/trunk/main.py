@@ -23,16 +23,16 @@ figs = {
 #    chess2.knight: 0
 #}
 
-#size_x = 3
-#size_y = 3
-#figs = {
+# size_x = 3
+# size_y = 3
+# figs = {
 #    chess2.king: 2,
 #    chess2.queen: 0,
 #    chess2.bishop: 0,
 #    chess2.rook: 1,
 #    chess2.knight: 0
-#}
-#
+# }
+
 
 def main():
     time1 = datetime.datetime.now()
@@ -41,7 +41,7 @@ def main():
     root_brd = chess2.create_empty_board(size_x, size_y)
     brds = chess2.place_figs_on_brd(fig_list, root_brd, size_x, size_y)
     for brd in brds:
-        view.print_board(brd)
+        view.print_board(chess2.unpack_board(brd, size_x, size_y))
     print("Number of boards: ", len(brds))
     print("Execution time: ", datetime.datetime.now() - time1)
 

@@ -4,16 +4,16 @@ import chess2
 
 
 def free_of_figures(brd, y, x):
-    return brd[y][x] == 0 or brd[y][x] == "X"
+    return brd[y][x] == chess2.empty or brd[y][x] == chess2.threat
 
 
 def free_of_threat(brd, y, x):
-    return brd[y][x] == 0
+    return brd[y][x] == chess2.empty
 
 
 def check_and_mark_threat(brd, y, x):
     if free_of_figures(brd, y, x):
-        brd[y][x] = "X"
+        brd[y][x] = chess2.threat
         return 1
     else:
         return 0
