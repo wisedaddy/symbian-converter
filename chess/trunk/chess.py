@@ -1,12 +1,6 @@
 __author__ = "stafi"
 
-import copy, strategy
-
-king = "K"
-queen = "Q"
-bishop = "B"
-knight = "N"
-rook = "R"
+import board
 
 def figs_as_list(figs):
     fig_list = []
@@ -17,44 +11,38 @@ def figs_as_list(figs):
 
 
 def create_empty_board(x, y):
-    return [[0 for xindex in range(x)] for yindex in range(y)]
+    return [[board.empty for xindex in range(x)] for yindex in range(y)]
 
-
-def validate(brd, size_x, size_y):
-    is_valid = 1
+def pack_board(brd, size_x, size_y):
+    packed = ()
     for y in range(size_y):
         for x in range(size_x):
-            fig = brd[y][x]
-            if fig == king:
-                is_valid = strategy.check_king_place_allowed(brd, x, y, size_x, size_y)
-            elif fig == rook:
-                is_valid = strategy.check_rook_place_allowed(brd, x, y, size_x, size_y)
-            elif fig == bishop:
-                is_valid = strategy.check_bishop_place_allowed(brd, x, y, size_x, size_y)
-            elif fig == queen:
-                is_valid = strategy.check_queen_place_allowed(brd, x, y, size_x, size_y)
-            elif fig == knight:
-                is_valid = strategy.check_knight_place_allowed(brd, x, y, size_x, size_y)
-            if not is_valid: return 0
-    return is_valid
+            if not board.free_of_figures(brd, y, x):
+                packed = packed + ((y, x, brd[y][x]),)
+    return packed
 
 
-def place_figs_on_brd(figs, brd, size_x, size_y, level):
+def unpack_board(packed, size_x, size_y):
+    brd = create_empty_board(size_x, size_y)
+    for entry in packed:
+        y, x, f = entry
+        brd[y][x] = f
+    return brd
+
+
+def place_figs_on_brd(figs, brd, size_x, size_y):
     brds = set()
     fig = figs[0]
-    #print('Level: ', level)
     other_figs = figs[1:]
     for y in range(size_y):
         for x in range(size_x):
-            if brd[y][x] == 0:
-                brd_copy = copy.deepcopy(brd)
-                brd_copy[y][x] = fig
-                if validate(brd_copy, size_x, size_y):
+            if board.free_of_threat(brd, y, x):
+                brd_copy = [row[:] for row in brd]
+                if board.func_put_fig[fig](brd_copy, x, y, size_x, size_y):
                     if (len(other_figs)) > 0:
-                        other_brds = place_figs_on_brd(other_figs, brd_copy, size_x, size_y, level + 1)
-                        for other_brd in other_brds:
-                            brds.add(other_brd)
+                        other_brds = place_figs_on_brd(other_figs, brd_copy, size_x, size_y)
+                        brds = brds | other_brds
                     else:
-                        brd_as_tuple = tuple(tuple(x) for x in brd_copy)
-                        brds.add(brd_as_tuple)
+                        stored_board = pack_board(brd_copy, size_x, size_y)
+                        brds.add(stored_board)
     return brds
