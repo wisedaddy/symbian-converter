@@ -3,15 +3,15 @@ __author__ = 'stafi'
 import datetime
 import chess2, view
 
-size_x = 6
-size_y = 9
-figs = {
-    chess2.king: 2,
-    chess2.queen: 1,
-    chess2.bishop: 1,
-    chess2.rook: 1,
-    chess2.knight: 1
-}
+# size_x = 6
+# size_y = 9
+# figs = {
+#     chess2.king: 2,
+#     chess2.queen: 1,
+#     chess2.bishop: 1,
+#     chess2.rook: 1,
+#     chess2.knight: 1
+# }
 
 # size_x = 4
 # size_y = 4
@@ -23,15 +23,15 @@ figs = {
 #    chess2.knight: 4
 # }
 
-# size_x = 5
-# size_y = 5
-# figs = {
-#    chess2.king: 2,
-#    chess2.queen: 1,
-#    chess2.bishop: 0,
-#    chess2.rook: 1,
-#    chess2.knight: 1
-# }
+size_x = 6
+size_y = 6
+figs = {
+   chess2.king: 2,
+   chess2.queen: 1,
+   chess2.bishop: 0,
+   chess2.rook: 1,
+   chess2.knight: 1
+}
 
 
 def main():

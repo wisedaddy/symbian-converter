@@ -38,14 +38,6 @@ def place_fig_on_board(fig, brd, x, y, size_x, size_y):
     return res
 
 
-def replaceZeros(brd_copy):
-    for y in range(len(brd_copy)):
-        for x in range(len(brd_copy[y])):
-            if brd_copy[y][x] == empty:
-                brd_copy[y][x] = threat
-    return brd_copy
-
-
 def pack_board(brd, size_x, size_y):
     packed = ()
     for y in range(size_y):
@@ -73,12 +65,11 @@ def place_figs_on_brd(figs, brd, size_x, size_y):
     for y in range(size_y):
         for x in range(size_x):
             if board.free_of_threat(brd, y, x):
-                brd_copy = copy.deepcopy(brd)
+                brd_copy = [row[:] for row in brd]
                 if place_fig_on_board(fig, brd_copy, x, y, size_x, size_y):
                     if (len(other_figs)) > 0:
                         other_brds = place_figs_on_brd(other_figs, brd_copy, size_x, size_y)
-                        for other_brd in other_brds:
-                            brds.add(other_brd)
+                        brds = brds | other_brds
                     else:
                         stored_board = pack_board(brd_copy, size_x, size_y)
                         brds.add(stored_board)
