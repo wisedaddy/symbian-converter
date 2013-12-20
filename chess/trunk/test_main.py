@@ -14,30 +14,30 @@ import chess, board
 # }
 
 
-size_x = 6
-size_y = 6
-figs = {
-   board.king: 1,
-   board.queen: 1,
-   board.bishop: 1,
-   board.rook: 1,
-   board.knight: 1
-}
-
-
-#size_x = 4
-#size_y = 4
+#size_x = 6
+#size_y = 6
 #figs = {
-#    chess2.king: 0,
-#    chess2.queen: 0,
-#    chess2.bishop: 0,
-#    chess2.rook: 2,
-#    chess2.knight: 4
+#   board.king: 1,
+#   board.queen: 1,
+#   board.bishop: 1,
+#   board.rook: 1,
+#   board.knight: 1
 #}
 
 
+size_x = 4
+size_y = 4
+figs = {
+    board.king: 0,
+    board.queen: 0,
+    board.bishop: 0,
+    board.rook: 2,
+    board.knight: 4
+}
+
+
 def print_board(brd):
-    for row in brd: print("|".join(row))
+    for row in brd: print("|".join([x.decode("utf-8") for x in row]))
     print("--" * (len(brd)))
 
 

@@ -18,17 +18,18 @@ def pack_board(brd, size_x, size_y):
     for y in range(size_y):
         for x in range(size_x):
             if not board.free_of_figures(brd, y, x):
-                packed = packed + ((y, x, brd[y][x]),)
+                packed += y, x, brd[y][x]
     return packed
 
 
 def unpack_board(packed, size_x, size_y):
     brd = create_empty_board(size_x, size_y)
-    for entry in packed:
-        y, x, f = entry
+    for i in range(len(packed)//3):
+        y = packed[i*3]
+        x = packed[i*3+1]
+        f = packed[i*3+2]
         brd[y][x] = f
     return brd
-
 
 def place_figs_on_brd(figs, brd, size_x, size_y):
     brds = set()

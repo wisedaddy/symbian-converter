@@ -1,12 +1,12 @@
 __author__ = 'stafi'
 
-king = "K"
-queen = "Q"
-bishop = "B"
-knight = "N"
-rook = "R"
-empty = "0"
-threat = "T"
+king = b"K"
+queen = b"Q"
+bishop = b"B"
+knight = b"N"
+rook = b"R"
+empty = b"0"
+threat = b"T"
 
 def free_of_figures(brd, y, x):
     return brd[y][x] == empty or brd[y][x] == threat

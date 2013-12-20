@@ -15,7 +15,7 @@ figs = {
 
 
 def print_board(brd):
-    for row in brd: print("|".join(row))
+    for row in brd: print("|".join([x.decode("utf-8") for x in row]))
     print("--" * (len(brd)))
 
 
@@ -26,7 +26,7 @@ def main():
     root_brd = chess.create_empty_board(size_x, size_y)
     brds = chess.place_figs_on_brd(fig_list, root_brd, size_x, size_y)
     time2 = datetime.datetime.now()
-    for brd in brds: print_board(chess.unpack_board(brd, size_x, size_y))
+    #for brd in brds: print_board(chess.unpack_board(brd, size_x, size_y))
     print("Boards storage size (b): ", sys.getsizeof(brds))
     print("Number of boards: ", len(brds))
     print("Execution time: ", time2 - time1)

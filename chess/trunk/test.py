@@ -1,11 +1,14 @@
 __author__ = 'stafi'
 
-import copy
+import sys
 
-x = 5
-y = 5
-brd = [[0 for xindex in range(x)] for yindex in range(y)]
-brd_copy = copy.deepcopy(brd)
-brd[3][3]=1
-print(brd)
-print(brd_copy)
+packed = ()
+for i in range(6):
+    x = 10
+    y = 10
+    f = 1
+    packed = packed + ((y, x, f),)
+    #packed += x, y, f
+print(sys.getsizeof(packed))
+print(sys.getsizeof("K"))
+print(sys.getsizeof(b"K"))
