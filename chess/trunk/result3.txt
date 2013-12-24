@@ -1,0 +1,7 @@
+Start time:  2013-12-19 20:45:01.657004
+Number of boards:  20136752
+Execution time:  0:49:58.831858
+
+Start time:  2013-12-20 12:20:35.804002
+Number of boards:  20136752
+Execution time:  0:40:35.164268
