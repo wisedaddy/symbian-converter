@@ -1,6 +1,14 @@
 import figures
-import datetime
 
+view_figures = {
+    figures.king: "K",
+    figures.queen: "Q",
+    figures.bishop: "B",
+    figures.knight: "N",
+    figures.rook: "R",
+    figures.empty: "0",
+    figures.threat: "T"
+}
 
 # Returns map of (figures: counts) as list
 def figs_as_list(figs):
@@ -11,54 +19,46 @@ def figs_as_list(figs):
     return fig_list
 
 
-def place_figs(figs, brds, parent_fig_data, parent_threat_data, size_y, size_x):
-    brds = set()
+# Prints board contents to console
+def print_board(brd):
+    if len(brd) > 0:
+        for row in brd: print("|".join([view_figures[f] for f in row]))
+        print("--" * (len(brd[0])))
+
+
+def pack(fig_data):
+    packed = ()
+    for crds in sorted(fig_data.keys()):
+        (y, x) = crds
+        packed += y, x, fig_data[crds]
+    return packed
+
+
+def unpack(packed, size_y, size_x):
+    brd = [[figures.empty for xindex in range(size_x)] for yindex in range(size_y)]
+    for i in range(len(packed)//3):
+        y = packed[i*3]
+        x = packed[i*3+1]
+        f = packed[i*3+2]
+        brd[y][x] = f
+    return brd
+
+
+def place_figs(figs, brds, size_y, size_x, parent_fig_data = dict(), parent_threat_data = set()):
     if len(figs) > 0:
         fig = figs[0]
         child_figs = figs[1:]
         for y in range(size_y):
             for x in range(size_x):
-                if (y, x) not in parent_threat_data:
+                parent_figs_crds = parent_fig_data.keys()
+                current_fig_crds = (y, x)
+                if current_fig_crds not in parent_threat_data and current_fig_crds not in parent_figs_crds:
                     threat = figures.figures_threat[fig](y, x, size_y, size_x)
-                    if len(threat.intersection(parent_fig_data.viewkeys())) == 0:
+                    if len(threat.intersection(parent_figs_crds)) == 0:
                         threat_data = parent_threat_data | threat
-                        fig_data = parent_fig_data.items()
-                        fig_data[(y, x)] = fig
+                        fig_data = parent_fig_data.copy()
+                        fig_data[current_fig_crds] = fig
                         if len(child_figs) > 0:
-                            place_figs(child_figs, brds, fig_data, threat_data, size_y, size_x)
+                            place_figs(child_figs, brds, size_y, size_x, fig_data, threat_data)
                         else:
-                            brds.add(sorted(fig_data))
-
-
-# Main entry point
-# size_x, size_y and figs should be defined inside this function
-def main():
-    # The size of board
-    # Number of columns
-    size_x = 6
-    # Number of rows
-    size_y = 9
-    # The figures and quantity of each figure which need to be placed on board
-    figs = {
-        figures.king: 2,
-        figures.queen: 1,
-        figures.bishop: 1,
-        figures.rook: 1,
-        figures.knight: 1
-    }
-
-    time1 = datetime.datetime.now()
-    print("Start time: ", time1)
-    fig_list = figs_as_list(figs)
-    brds = set()
-    place_figs(fig_list, brds, dict(), set(), size_y, size_x)
-    time2 = datetime.datetime.now()
-
-    # Uncomment 2 lines below to see constructed boards
-    # for brd in brds:
-    #     chess.print_board(chess.unpack_board(brd, size_x, size_y))
-
-    print("Number of boards: ", len(brds))
-    print("Execution time: ", time2 - time1)
-
-main()
+                            brds.add(pack(fig_data))
