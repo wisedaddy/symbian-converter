@@ -30,7 +30,7 @@ def pack(fig_data):
 # Unpacks board from compact presentation and return list of lists
 # See pack_board for information on compact board presentation
 def unpack(packed, size_y, size_x):
-    brd = [[figures.EMPTY for xindex in range(size_x)] for yindex in range(size_y)]
+    brd = [[figures.EMPTY for i in range(size_x)] for j in range(size_y)]
     for i in range(len(packed) // 3):
         y = packed[i * 3]
         x = packed[i * 3 + 1]
@@ -41,15 +41,15 @@ def unpack(packed, size_y, size_x):
 
 # Function tries to put list of figures on board and returns the set of distinct packed boards where all figures are put on board
 def place_figs(figs_list, size_y, size_x):
-    brds = set()
     parent_fig_data = dict()
     parent_threat = set()
-    return internal_place_figs(figs_list, size_y, size_x, brds, parent_fig_data, parent_threat)
+    return internal_place_figs(figs_list, size_y, size_x, parent_fig_data, parent_threat)
 
 
 # Function tries to put list of figures on board and returns the set of distinct packed boards where all figures are put on board
 # The function call itself recursively to try all the figures
-def internal_place_figs(figs_list, size_y, size_x, brds, parent_fig_data, parent_threat):
+def internal_place_figs(figs_list, size_y, size_x, parent_fig_data, parent_threat):
+    brds = set()
     parent_figs_crds = parent_fig_data.keys()
     if len(figs_list) > 0:
         fig = figs_list[0]
@@ -64,7 +64,7 @@ def internal_place_figs(figs_list, size_y, size_x, brds, parent_fig_data, parent
                         fig_data = parent_fig_data.copy()
                         fig_data[cur_fig] = fig
                         if len(child_figs) > 0:
-                            brds = internal_place_figs(child_figs, size_y, size_x, brds, fig_data, threat)
+                            brds |= internal_place_figs(child_figs, size_y, size_x, fig_data, threat)
                         else:
-                            brds.add(pack(fig_data))
+                            brds |= {pack(fig_data)}
     return brds
