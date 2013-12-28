@@ -50,12 +50,12 @@ def place_figs(figs_list, size_y, size_x):
 # Function tries to put list of figures on board and returns the set of distinct packed boards where all figures are put on board
 # The function call itself recursively to try all the figures
 def internal_place_figs(figs_list, size_y, size_x, brds, parent_fig_data, parent_threat):
+    parent_figs_crds = parent_fig_data.keys()
     if len(figs_list) > 0:
         fig = figs_list[0]
         child_figs = figs_list[1:]
         for y in range(size_y):
             for x in range(size_x):
-                parent_figs_crds = parent_fig_data.keys()
                 cur_fig = (y, x)
                 if cur_fig not in parent_threat and cur_fig not in parent_figs_crds:
                     cur_threat = figures.figures_threat[fig](y, x, size_y, size_x)
