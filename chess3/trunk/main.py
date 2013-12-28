@@ -1,6 +1,7 @@
 __author__ = 'stafi'
 
-import chess3, figures
+import board
+import figures
 import datetime
 
 
@@ -13,25 +14,20 @@ def main():
     # Number of rows
     size_y = 9
     # The figures and quantity of each figure which need to be placed on board
-    figs = {
-        figures.king: 2,
-        figures.queen: 1,
-        figures.bishop: 1,
-        figures.rook: 1,
-        figures.knight: 1
+    figs_dict = {
+        figures.KING: 2,
+        figures.QUEEN: 1,
+        figures.BISHOP: 1,
+        figures.ROOK: 1,
+        figures.KNIGHT: 1
     }
-
     time1 = datetime.datetime.now()
     print("Start time: ", time1)
-    fig_list = chess3.figs_as_list(figs)
-    brds = set()
-    chess3.place_figs(fig_list, brds, size_y, size_x)
+    brds = board.place_figs(figures.figs_as_list(figs_dict), size_y, size_x)
     time2 = datetime.datetime.now()
-
-    # Uncomment 2 lines below to see constructed boards
+    #Uncomment 2 lines below to see constructed boards
     #for brd in brds:
-    #     chess3.print_board(chess3.unpack(brd, size_x, size_y))
-
+    #    board.print_board(board.unpack(brd, size_x, size_y))
     print("Number of boards: ", len(brds))
     print("Execution time: ", time2 - time1)
 

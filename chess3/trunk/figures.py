@@ -1,13 +1,23 @@
 __author__ = 'stafi'
 
-king = 1
-queen = 2
-bishop = 3
-knight = 4
-rook = 5
-empty = 9
-threat = 0
+KING = 1
+QUEEN = 2
+BISHOP = 3
+KNIGHT = 4
+ROOK = 5
+EMPTY = 0
 
+
+# Returns map of (figures: counts) as list
+def figs_as_list(figs_dict):
+    fig_list = []
+    for k, v in figs_dict.items():
+        for i in range(v):
+            fig_list.append(k)
+    return fig_list
+
+
+# Returns a set of coordinates of board spots which are threatened by a KING place at (y, x)
 def king_threat(y, x, size_y, size_x):
     crds = set()
     if y > 0:
@@ -29,6 +39,7 @@ def king_threat(y, x, size_y, size_x):
     return crds
 
 
+# Returns a set of coordinates of board spots which are threatened by a ROOK place at (y, x)
 def rook_threat(y, x, size_y, size_x):
     crds = set()
     for col in range(size_x):
@@ -40,6 +51,7 @@ def rook_threat(y, x, size_y, size_x):
     return crds
 
 
+# Returns a set of coordinates of board spots which are threatened by a BISHOP place at (y, x)
 def bishop_threat(y, x, size_y, size_x):
     crds = set()
     min_x_y = min(x, y)
@@ -61,11 +73,12 @@ def bishop_threat(y, x, size_y, size_x):
     return crds
 
 
+# Returns a set of coordinates of board spots which are threatened by a QUEEN place at (y, x)
 def queen_threat(y, x, size_y, size_x):
-    crds = rook_threat(y, x, size_y, size_x) | bishop_threat(y, x, size_y, size_x)
-    return crds
+    return rook_threat(y, x, size_y, size_x) | bishop_threat(y, x, size_y, size_x)
 
 
+# Returns a set of coordinates of board spots which are threatened by a KNIGHT place at (y, x)
 def knight_threat(y, x, size_y, size_x):
     crds = set()
     if x > 0 and y > 1:
@@ -88,9 +101,9 @@ def knight_threat(y, x, size_y, size_x):
 
 
 figures_threat = {
-    king: king_threat,
-    rook: rook_threat,
-    bishop: bishop_threat,
-    queen: queen_threat,
-    knight: knight_threat
+    KING: king_threat,
+    ROOK: rook_threat,
+    BISHOP: bishop_threat,
+    QUEEN: queen_threat,
+    KNIGHT: knight_threat
 }
