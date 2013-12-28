@@ -57,7 +57,7 @@ def internal_place_figs(figs_list, size_y, size_x, brds, parent_fig_data, parent
         for y in range(size_y):
             for x in range(size_x):
                 cur_fig = (y, x)
-                if cur_fig not in parent_threat and cur_fig not in parent_figs_crds:
+                if cur_fig not in parent_figs_crds and cur_fig not in parent_threat:
                     cur_threat = figures.figures_threat[fig](y, x, size_y, size_x)
                     if not cur_threat.intersection(parent_figs_crds):
                         threat = parent_threat | cur_threat
