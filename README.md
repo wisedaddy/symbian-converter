@@ -1,7 +1,7 @@
 # symbian-converter
 Automatically exported from code.google.com/p/symbian-converter
 
-Description
+<h1>Description</h1>
 
 This is a converter of VCF file exported from Google Contact to Symbian VCard format.
 
@@ -11,13 +11,13 @@ Symbian format uses multiple files with quoted-printable-encoded UTF8 characters
 
 I wrote this application to have my google contact on Symbian device.
 
-Dependencies
+<h1>Dependencies</h1>
 
 To run this app you need apache commons codec package: http://commons.apache.org/codec.
 
 I used version 1.6.
 
-Runbook
+<h1>Runbook</h1>
 
 Export needed contacts from Google Contact into VCard format.
 Run this application against this file.
