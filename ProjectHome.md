@@ -1,0 +1,1 @@
+Converter of google contacts VCF file to symbian VCF files
